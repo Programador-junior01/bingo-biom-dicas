@@ -87,27 +87,28 @@
     }
 
     function gerarBingo(){
-      const grid = document.getElementById('grid');
-      grid.innerHTML = '';
-      let frases = shuffle([...FRASES]);
-      let idx = 0;
-      for(let r=0;r<5;r++){
-        for(let c=0;c<5;c++){
-          const cell = document.createElement('div');
-          cell.className='cell';
-          if(r===2 && c===2){
-            const img = document.createElement('img');
-            img.src = 'maxresdefault.jpg'; // substitua por sua imagem
-            img.className='logo';
-            cell.appendChild(img);
-          }else{
-            cell.textContent = frases[idx++];
-          }
-          cell.addEventListener('click',()=>cell.classList.toggle('marked'));
-          grid.appendChild(cell);
-        }
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  // seleciona só 24 frases, já que a 25ª é a imagem
+  let frases = shuffle([...FRASES]).slice(0, 24);
+  let idx = 0;
+  for(let r=0;r<5;r++){
+    for(let c=0;c<5;c++){
+      const cell = document.createElement('div');
+      cell.className='cell';
+      if(r===2 && c===2){
+        const img = document.createElement('img');
+        img.src = 'maxresdefault.jpg'; // substitua pela sua imagem
+        img.className='logo';
+        cell.appendChild(img);
+      }else{
+        cell.textContent = frases[idx++];
       }
+      cell.addEventListener('click',()=>cell.classList.toggle('marked'));
+      grid.appendChild(cell);
     }
+  }
+}
 
     function shuffle(a){
       for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
